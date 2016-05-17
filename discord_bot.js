@@ -38,6 +38,7 @@ catch (e) { //no version
 }
 
 var startTime = Date.now();
+var lastTimeSync = 0;
 
 // Util function to choose a random from array
 var randomFromArray = function(array) {
@@ -1040,6 +1041,16 @@ bot.on("userUnbanned", function(user, server) {
 
 // Fires on user changes http://discordjs.readthedocs.io/en/latest/docs_client.html#presence
 bot.on("presence", function(userOld, userNew) {
+
+  console.log(lastTimeSync);
+  console.log(Date.now());
+  console.log(Date.now() - lastTimeSync);
+  if ((Date.now() - lastTimeSync) > 300000) {
+    lastTimeSync = Date.now();
+    console.log('more than 5 minutes have passed: '+ Date());
+  }
+
+
   if (userOld.status != userNew.status) {
     // Implied status change
     //logMessage(bot,"user: "+userNew.username+", status: "+userNew.status);
