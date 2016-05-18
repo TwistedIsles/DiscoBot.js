@@ -1055,12 +1055,12 @@ bot.on("message", function(msg) {
               info += " - " + description;
             }
             
-            if((cmdString.length + info.length)<1900){
+            if((cmdString.length + info.length)<1900) {
               cmdString += info + "\n";
             }
-            else{
+            else {
               cmdString += "```";
-              cmdArray.push(cmdString);
+              cmdArray.unshift(cmdString);
               cmdString = "```"; //reset
               cmdString += info + "\n";
             }
@@ -1068,13 +1068,10 @@ bot.on("message", function(msg) {
           }
           cmdString += "```";
           cmdArray.push(cmdString);
-          
-          for (var i = 0; i < cmdArray.length; i++) {
-            bot.sendMessage(msg.author, cmdArray[i], function(e){
-              if(e) {
-                    console.log(e);
-                  } 
-            });
+
+          for (var i in cmdArray) {
+            console.log(cmdArray[i]);
+            bot.sendMessage(msg.author, cmdArray[i]);
           }
         });
       } else if (cmd) {
